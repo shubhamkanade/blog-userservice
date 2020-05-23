@@ -1,0 +1,41 @@
+version: '3.1'
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-userservice
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+    ports:
+      - "3306:3306"
+
+  post:
+    image: gitlab.techverito.com:4567/internal/blog-postservice:${BUILD_NUMBER}
+    container_name: postservice
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mysql
+    environment:
+      - DB_HOST=mysql  
+      - RACK_ENV=test
+  user:
+    image: gitlab.techverito.com:4567/internal/blog-userservice:${BUILD_NUMBER}
+    container_name: userservice
+    ports:
+      - "3001:3000"
+    depends_on:
+      - mysql
+    environment:
+      - DB_HOST=mysql  
+      - RACK_ENV=test
+  blog:
+    image: gitlab.techverito.com:4567/internal/blog:${BUILD_NUMBER}
+    container_name: blog
+    ports:
+      - "3002:3000"
+    depends_on:
+      - mysql
+    environment:
+      - DB_HOST=mysql  
+      - RACK_ENV=test

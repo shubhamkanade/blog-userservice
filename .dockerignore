@@ -1,0 +1,15 @@
+.bundle
+./tmp
+.git
+.gitignore
+coverage/
+spec/tmp
+tmp
+vendor
+Dockerfile
+Jenkinsfile
+README.md
+*.sh
+docker-compose.yml
+.dockerignore
+log/development.log

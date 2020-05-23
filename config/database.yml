@@ -1,0 +1,21 @@
+default: &default
+  encoding: utf8
+  adapter: mysql2
+  pool: 5
+  timeout: 5000
+  port: 3306
+  host: <%= Rails.application.credentials[:database][:host] %>
+  username: <%= Rails.application.credentials[:database][:username] %>
+  password: <%= Rails.application.credentials[:database][:password] %>
+
+development:
+  <<: *default
+  database: blog_development
+
+test:
+  <<: *default
+  database: blog_test
+
+production:
+  <<: *default
+  database: blog_production
